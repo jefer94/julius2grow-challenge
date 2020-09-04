@@ -15,20 +15,20 @@
 
 - [ ] Token provider
   - [ ] JWT
-    - [ ] Id
-    - [ ] Email
-    - [ ] Exp in one hour
+    - [X] Id
+    - [X] Email
+    - [X] Exp in one hour
   - [ ] Check that user exist
 - [ ] DB
   - [ ] News
-    - [ ] Image in S3
-    - [ ] Title
-    - [ ] Content
-    - [ ] Created at
+    - [X] Image in S3
+    - [X] Title
+    - [X] Content
+    - [X] Created at
   - [ ] Users
-    - [ ] Unique username
-    - [ ] unique email
-    - [ ] Password with hash
+    - [X] Unique username
+    - [X] Unique email
+    - [X] Password with hash
 - [ ] With auth
   - [ ] Add new
   - [ ] List news by a user
@@ -53,7 +53,7 @@
 
 # Where are upload the challenge
 
-- [ ] Github
+- [X] Github
 
 # Repository requeriments
 
