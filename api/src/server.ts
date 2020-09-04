@@ -7,7 +7,7 @@ import methodOverride from 'method-override'
 import ora from 'ora'
 import { getToken, addUser, getUser, fetchPostsByUser, addPost, deletePost } from './controllers'
 
-const app = express()
+export const app = express()
 const port = process.env.PORT || 3000
 
 app
