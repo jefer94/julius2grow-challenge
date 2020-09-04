@@ -6,6 +6,16 @@
   background-color: var(--main-color);
 }
 
+.bg-c-primary {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.bg-c-primary:hover {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
 html,
 body {
   padding: 0;

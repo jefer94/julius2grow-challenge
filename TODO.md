@@ -1,9 +1,9 @@
 # Requeriments
 
-- [ ] Express.js Restful
-- [ ] MVC
-- [ ] React
-- [ ] Bootstrap
+- [X] Express.js Restful
+- [X] MVC
+- [X] React
+- [X] Bootstrap
 - [ ] Docker
 - [ ] Docker compose
 - [ ] Heroku
@@ -42,11 +42,11 @@
 
 - [ ] Pages
   - [ ] Without auth
-    - [ ] Login
-    - [ ] Register
+    - [X] Login
+    - [X] Register
   - [ ] With auth
     - [ ] Post
-      - [ ] List
+      - [X] List
       - [ ] Add
       - [ ] Filter
       - [ ] Delete

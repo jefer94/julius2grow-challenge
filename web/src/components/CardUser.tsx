@@ -11,7 +11,7 @@ export default function CardUser({ user }) {
       fontStyle: 'normal',
       fontWeight: 300,
       fontSize: '18px',
-      lineHeight: '21px'
+      lineHeight: '48px'
     }}>
       {user}
     </span>
