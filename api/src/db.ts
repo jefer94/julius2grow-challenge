@@ -9,7 +9,7 @@ function clearCollections() {
 /** Database connection. */
 export default function db(connection = 'mongodb://localhost/choco'): void {
   if (process.env.NODE_ENV !== 'test')
-    return mongoose.connect(connection, { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(connection, { useNewUrlParser: true, useUnifiedTopology: true })
   else {
     if (mongoose.connection.readyState === 0) {
       mongoose.connect(`${connection}-test`, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {

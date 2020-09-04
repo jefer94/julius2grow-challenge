@@ -1,3 +1,11 @@
+:root {
+  --main-color: #A403F0!important;
+}
+
+.bg-main-color {
+  background-color: var(--main-color);
+}
+
 html,
 body {
   padding: 0;

@@ -24,7 +24,14 @@
     "ora": "^5.0.0"
   },
   "devDependencies": {
+    "@chocolab/configs": "^1.0.2-alpha.0",
+    "@types/cors": "^2.8.7",
+    "@types/dotenv": "^8.2.0",
+    "@types/helmet": "^0.0.48",
     "@types/jest": "^26.0.13",
+    "@types/mongoose": "^5.7.36",
+    "@types/morgan": "^1.9.1",
+    "@types/ora": "^3.2.0",
     "cross-env": "^7.0.2",
     "jest": "^26.4.2",
     "supertest": "^4.0.2",
