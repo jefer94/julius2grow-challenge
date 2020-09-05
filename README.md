@@ -1,115 +1,145 @@
 <div align="center">
-  <br>
-  <br>
-
-  <a href="https://github.com/jefer94/choco">
-    <img
-      width="400"
-      src="https://img.shields.io/badge/choco-algorithm-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
-    />
-  </a>
-
-  [![deps](https://david-dm.org/jefer94/choco.svg)](https://david-dm.org/jefer94/choco)
-  [![dev-deps](https://david-dm.org/jefer94/choco/dev-status.svg)](https://david-dm.org/jefer94/choco)
-  [![chat](https://badges.gitter.im/jefer94/choco.svg)](https://gitter.im/jefer94/choco)
-  [![Maintainability](https://api.codeclimate.com/v1/badges/5a4fd7ce7e0345f692fb/maintainability)](https://codeclimate.com/github/jefer94/choco/maintainability)
-  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ee185db880024f3b81a5699acde77b06)](https://www.codacy.com/manual/jefer94/choco?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jefer94/choco&amp;utm_campaign=Badge_Grade)
-  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0)
-  [![github commits](https://img.shields.io/github/commit-activity/m/jefer94/choco)](https://github.com/jefer94/choco)
-  [![github contributors](https://img.shields.io/github/contributors/jefer94/choco)](https://github.com/jefer94/choco)
-  [![github last commit](https://img.shields.io/github/last-commit/jefer94/choco)](https://github.com/jefer94/choco)
-  [![github vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/jefer94/choco)](https://github.com/jefer94/choco)
-  <!-- [![security headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
-  <!-- [![website up](https://img.shields.io/website?url=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
-  <!-- [![w3c validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
-
-  <br>
-  <h1>Choco Algorithm</h1>
-  <p>Services that provide a algorithm runtime emulator, and an IDE.</p>
+  <h1>Julius2grow Challenge</h1>
 </div>
 
 ## Install
 
 ```bash
 # Clone
-git clone https://github.com/jefer94/choco.git
-cd choco
+git clone https://github.com/jefer94/julius2grow-challenge
+cd julius2grow-challenge
 
 # Install
 yarn
 
-# Compile deps
-yarn build:deps
-yarn build:deps --scope=@chocolab/i18n
-yarn build:deps --scope=@chocolab/algorithm-transpiler
+cd api && yarn && cd ..
+cd web && yarn && cd ..
 
-# Execute service
-yarn execute SERVICE_NAME
+# Run
+yarn dev:api
+yarn dev:web
+
+# Test api
+yarn test:api
+
+# Test web
+yarn test:p2p
+
 
 # Run in docker
-docker-compose up -d
+./docker-build.sh
+docker-compose up -d api
+docker-compose up -d web # web not compile
 ```
 
-## Services
+# Mockups
 
-| Name | Description |
-| :--- | :--- |
-| [algorithm][choco-algorithm] | Algorithm frontend. |
-| [graphql-gateway][choco-graphql-gateway] | GraphQL API Gateway. |
-| [activity][choco-activity] | Log of user activities. |
-| [authenticator][choco-authenticator] | Manage auth and tokens. |
-| [authorize][choco-authorize] | Legacy authorization manager. |
-| [cache][choco-cache] | Manage in memory cache. |
-| [projects][choco-projects] | User projects. |
-| [world-cities-seed][choco-world-cities-seed] | Countries, cities and language database seed. |
+[Violet Blog](https://www.figma.com/file/ng2d3GiRV5OOKPYlxmmbwO/Untitled?node-id=0%3A1)
 
-[choco-algorithm]: https://github.com/jefer94/choco/tree/master/services/algorithm
-[choco-graphql-gateway]: https://github.com/jefer94/choco/tree/master/services/graphql-gateway
-[choco-activity]: https://github.com/jefer94/choco/tree/master/services/activity
-[choco-authenticator]: https://github.com/jefer94/choco/tree/master/services/authenticator
-[choco-authorize]: https://github.com/jefer94/choco/tree/master/services/authorize
-[choco-cache]: https://github.com/jefer94/choco/tree/master/services/cache
-[choco-projects]: https://github.com/jefer94/choco/tree/master/services/projects
-[choco-world-cities-seed]: https://github.com/jefer94/choco/tree/master/services/world-cities-seed
+# Specifications
 
-## Packages
+[JSON:API](https://jsonapi.org/examples/)
 
-| Name | Description |
-| :--- | :--- |
-| [@chocolab/components][choco-components] | React components, common UI. |
-| [@chocolab/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler. |
-| [@chocolab/configs][configs] | Configuration files. |
-| [@chocolab/css-utils][choco-css] | Handle CSS variables. |
-| [@chocolab/env][choco-env] | Load .env for monorepos. |
-| [@chocolab/functional][choco-functional] | Functional utilities. |
-| [@chocolab/hooks][choco-hooks] | React hooks. |
-| [@chocolab/i18n][choco-i18n] | Load dynamically our string, in we language. |
-| [@chocolab/keychain][choco-keychain] | Unique key generator for React, prevent unnecessary renders. |
-| [@chocolab/middlewares][choco-middlewares] | Common Middlewares used in Express. |
-| [@chocolab/password][choco-password] | Encrypt and decrypt password. |
+# Routes
 
-[choco-components]: https://github.com/jefer94/choco/tree/master/packages/components
-[choco-transpiler]: https://github.com/jefer94/choco/tree/master/packages/algorithm-transpiler
-[choco-css]: https://github.com/jefer94/choco/tree/master/packages/css-utils
-[configs]: https://github.com/jefer94/choco/tree/master/packages/configs
-[choco-env]: https://github.com/jefer94/choco/tree/master/packages/env
-[choco-functional]: https://github.com/jefer94/choco/tree/master/packages/functional
-[choco-hooks]: https://github.com/jefer94/choco/tree/master/packages/hooks
-[choco-middlewares]: https://github.com/jefer94/choco/tree/master/packages/middlewares
-[choco-i18n]: https://github.com/jefer94/choco/tree/master/packages/i18n
-[choco-keychain]: https://github.com/jefer94/choco/tree/master/packages/keychain
-[choco-password]: https://github.com/jefer94/choco/tree/master/packages/password
+| Route | Method | Description |
+| :--- | :--- | :--- |
+| /token | POST | Get token. |
+| /users | POST | Add one user. |
+| /users/me | GET | Get current user. |
+| /posts/:offset? | GET | List posts. |
+| /posts | POST | Add one post. |
+| /posts/:id | DELETE | Delete post. |
+| /posts/filter | POST | Filter posts. |
 
-## Maintainers
+# Objects
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/jefer94.png?s=150">
-        <br>
-        <a href="https://github.com/jefer94">jefer94</a>
-      </td>
-     </tr>
-  </tbody>
-</table>
+```typescript
+type Post = {
+  image: string
+  title: string
+  content: string
+  user: string
+}
+
+type User = {
+  username: string
+  email: string
+  password: string
+}
+```
+
+# Pagination
+
+```typescript
+type Offset = {
+  offset: number
+}
+```
+
+# Requeriments
+
+- [X] Express.js Restful
+- [X] MVC
+- [X] React
+- [X] Bootstrap
+- [X] Docker
+- [X] Docker compose
+- [ ] Heroku
+- [ ] Mongo Atlas https://www.mongodb.com/cloud/atlas
+- [ ] Redux or context
+- [X] JWT
+
+# API requeriments
+
+- [X] Token provider
+  - [X] JWT
+    - [X] Id
+    - [X] Email
+    - [X] Exp in one hour
+  - [X] Check that user exist
+- [X] DB
+  - [X] News
+    - [ ] Image in S3
+    - [X] Title
+    - [X] Content
+    - [X] Created at
+  - [X] Users
+    - [X] Unique username
+    - [X] Unique email
+    - [X] Password with hash
+- [X] With auth
+  - [X] Add new
+  - [X] List news by a user
+  - [X] Delete new
+  - [X] Filter by a user
+    - [X] Title
+    - [X] Content
+- [X] Implement 10 elements by result
+
+# Frontend requeriments
+
+- [ ] Pages
+  - [ ] Without auth
+    - [X] Login
+    - [X] Register
+  - [ ] With auth
+    - [ ] Post
+      - [X] List
+      - [ ] Add
+      - [ ] Filter
+      - [ ] Delete
+
+# Where are upload the challenge
+
+- [X] Github
+
+# Repository requeriments
+
+- [X] Add one README.md with how to run example
+
+# Requirements that cannot be developed
+
+- S3 (I not have credit card)
+- Microservices with a message broker (is complicated with Heroku free)
+- Monorepo (is complicated deploy all in five hours in Heroku)

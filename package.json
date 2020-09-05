@@ -7,10 +7,11 @@
   "license": "MIT",
 
   "scripts": {
-    "dev:api": "cd api && yarn dev",
+    "dev:api": "yarn docker:mongo && cd api && yarn dev",
     "dev:web": "cd web && yarn dev",
     "cypress:open": "cd web && yarn cypress open",
     "docker:mongo": "docker-compose up -d mongo",
+    "test:api": "yarn docker:mongo && cd api && yarn test",
     "test:p2p": "yarn docker:mongo && yarn run-p --race dev:api dev:web cypress:open"
   },
   "devDependencies": {

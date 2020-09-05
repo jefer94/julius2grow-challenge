@@ -1,68 +1,24 @@
 version: "3"
 
 services:
-  # api gateway
-  graphql-gateway:
-    image: choco/graphql-gateway
-    links:
-      - nats
-
-  activity:
-    image: choco/activity
+  api:
+    image: challenge/api
+    ports:
+      - 9000:9000
     links:
       - mongo
-      - nats
-  
-  algorithm:
-    image: choco/algorithm
+
+  web:
+    image: challenge/web
     ports:
       - 3000:3000
-
-  authenticator:
-    image: choco/authenticator
-    links:
-      - mongo
-      - nats
-
-  cache:
-    image: choco/cache
-    links:
-      - mongo
-      - nats
-
-  projects:
-    image: choco/projects
-    links:
-      - mongo
-      - nats
-
-  world-cities-seed:
-    image: choco/world-cities-seed
-    environment:
-      - HOST=mongo
-    links:
-      - mongo
-
+  
   mongo:
     image: mongo
     volumes:
       - data:/data/db
     ports:
       - 27017:27017
-
-  redis:
-    image: redis:alpine
-    ports:
-      - 6379:6379
-
-  nats:
-    image: nats:alpine
-    ports:
-      - 4222:4222
-      - 6222:6222
-      - 8222:8222
   
 volumes:
   data:
-  letsencrypt:
-  certbot:
