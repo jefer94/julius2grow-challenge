@@ -8,5 +8,5 @@ import Post from '../models/Post'
  * @param req - Express response.
  */
 export async function fetchPostsByUser(req: Request, res: Response): Promise<void> {
-  res.json({ data: await Post.find({ user: req.body.user }).lean() })
+  res.json({ data: await Post.find({ user: req.params.id }).lean() })
 }

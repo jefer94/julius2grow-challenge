@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import ora from 'ora'
+import authMiddleware from './middlewares/auth'
 import { getToken, addUser, getUser, fetchPostsByUser, addPost, deletePost } from './controllers'
 
 export const app = express()
@@ -18,13 +19,13 @@ app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(methodOverride())
 
-app.post('/token', getToken)
+app.post('/token',  getToken)
 app.post('/users', addUser)
-app.get('/users/me', getUser)
-app.get('/posts', fetchPostsByUser)
-app.post('/posts', addPost)
-app.delete('/posts/:id', deletePost)
-app.post('/posts/filter', () => {
+app.get('/users/me', authMiddleware, getUser)
+app.get('/posts', authMiddleware, fetchPostsByUser)
+app.post('/posts', authMiddleware, addPost)
+app.delete('/posts/:postId', authMiddleware, deletePost)
+app.post('/posts/filter', authMiddleware, () => {
   //
 })
 

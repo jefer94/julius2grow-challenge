@@ -4,7 +4,7 @@ export type PostFields = {
   image: string
   title: string
   content: string
-  user: typeof Schema.Types.ObjectId
+  user: string
 }
 
 export type PostDocument = Document & PostFields
