@@ -1,0 +1,19 @@
+{
+  "name": "julius2grow-challenge",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "https://github.com/jefer94/julius2grow-challenge.git",
+  "author": "jefer94 <jdefreitaspinto@gmail.com>",
+  "license": "MIT",
+
+  "scripts": {
+    "dev:api": "cd api && yarn dev",
+    "dev:web": "cd web && yarn dev",
+    "cypress:open": "cd web && yarn cypress open",
+    "docker:mongo": "docker-compose up -d mongo",
+    "test:p2p": "yarn docker:mongo && yarn run-p --race dev:api dev:web cypress:open"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

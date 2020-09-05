@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Post } from '../models'
+import Post from '../models/Post'
 
 /**
  * Delete post.

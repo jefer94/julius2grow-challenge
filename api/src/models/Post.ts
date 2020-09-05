@@ -1,11 +1,11 @@
 import { Document, Schema, model } from 'mongoose'
 
 export type PostFields = {
-  readonly image: string
-  readonly title: string
-  readonly content: string
-  readonly user: typeof Schema.Types.ObjectId
-};
+  image: string
+  title: string
+  content: string
+  user: typeof Schema.Types.ObjectId
+}
 
 export type PostDocument = Document & PostFields
 
@@ -24,4 +24,4 @@ function transform(): Record<string, unknown> {
 
 schema.method('transform', transform)
 
-export const Post = model<PostDocument>('Post', schema)
+export default model<PostDocument>('Post', schema)

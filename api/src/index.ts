@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import { listen } from './server'
 import db from './db'
-import * as path from 'path'
+// import * as path from 'path'
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') })
+dotenv.config()
 
 db()
 listen()

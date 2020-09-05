@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Post } from '../models'
+import Post from '../models/Post'
 
 /**
  * Fetch posts by user.
@@ -8,7 +8,5 @@ import { Post } from '../models'
  * @param req - Express response.
  */
 export async function fetchPostsByUser(req: Request, res: Response): Promise<void> {
-  res.json({ data: Post.find({ user: req.body.user })
-     .lean()
-     .map(({ password, ...user }) => user) })
+  res.json({ data: await Post.find({ user: req.body.user }).lean() })
 }

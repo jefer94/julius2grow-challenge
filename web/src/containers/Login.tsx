@@ -26,7 +26,7 @@ export default function Home(): ReactElement {
           <span className={authCss.alternative}>Aun no tienes una cuenta?</span>
           <a className={authCss.link} href="/register">registrate</a>
 
-          <Button className={authCss.submit} block>Ingresar</Button>
+          <Button className={authCss.submit} onClick={console.log} block>Ingresar</Button>
         </Form>
       </div>
     </div> 

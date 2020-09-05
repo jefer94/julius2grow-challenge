@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { encrypt } from '@chocolab/password'
+import { decrypt } from '@chocolab/password'
 import jwt from 'jsonwebtoken'
-import { User } from '../models'
+import User from '../models/User'
 
 /**
  * Get token.
@@ -11,15 +11,18 @@ import { User } from '../models'
  */
 export async function getToken(req: Request, res: Response): Promise<void> {
   try {
-    const user = User.findOne({ username: req.body.username, password: req.body.password }).lean()
-    const payload = { id: user._id, email: user.email, exp: '1h' }
+    const user = await User.findOne({ username: req.body.username }).lean()
+    const payload = { id: user._id, email: user.email }
+    if (!user._id) throw 'username not exist'
+    if (!await decrypt(req.body.password, user.password)) throw 'incorrect password'
     const token = jwt.sign(payload, process.env.SECRET, {
-			expiresIn: '1h'
+			expiresIn: 3600
     });
     
 		res.json({ token: token })
   }
   catch(e) {
+    console.log(e)
     res.json({ errors: [e] })
   }
 }

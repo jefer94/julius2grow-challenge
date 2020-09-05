@@ -6,7 +6,8 @@ context('Check editor global attributes', () => {
   })
 
   it('Contain correct text in navbar', () => {
-    cy.contains('span', 'C').should('be.visible')
-    cy.contains('nav div', 'Choco Algorithm').should('be.visible')
+    cy.get('#username').type('Konan')
+    cy.get('#current-password').type('123Konan!')
+    cy.get('button').click()
   })
 })

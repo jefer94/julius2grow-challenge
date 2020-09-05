@@ -1,10 +1,10 @@
 import { Document, Schema, model } from 'mongoose'
 
 export type UserFields = {
-  readonly username: typeof Schema.Types.ObjectId
-  readonly email: string
-  readonly password: string
-};
+  username: typeof Schema.Types.ObjectId
+  email: string
+  password: string
+}
 
 export type UserDocument = Document & UserFields
 
@@ -22,4 +22,4 @@ function transform(): Record<string, unknown> {
 
 schema.method('transform', transform)
 
-export const User = model<UserDocument>('User', schema)
+export default model<UserDocument>('User', schema)

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { encrypt } from '@chocolab/password'
-import { User } from '../models'
+import jwt from 'jsonwebtoken'
+import User from '../models/User'
 
 /**
  * Add post.
@@ -12,11 +13,17 @@ export async function addUser(req: Request, res: Response): Promise<void> {
   try {
     const user = new User(req.body)
     if (!user.password) throw 'password not provided'
-    user.password = encrypt(user.password)
+    user.password = await encrypt(user.password)
     await user.save()
-    res.json({ data: { status: 'sucessful' } })
+    const payload = { id: user._id, email: user.email }
+    const token = jwt.sign(payload, process.env.SECRET, {
+			expiresIn: 3600
+    });
+    
+		res.json({ token: token })
   }
   catch(e) {
+    // console.log(e)
     res.json({ errors: [e] })
   }
 }
