@@ -9,34 +9,34 @@
 - [ ] Heroku
 - [ ] Mongo Atlas https://www.mongodb.com/cloud/atlas
 - [ ] Redux or context
-- [ ] JWT
+- [X] JWT
 
 # API requeriments
 
-- [ ] Token provider
-  - [ ] JWT
+- [X] Token provider
+  - [X] JWT
     - [X] Id
     - [X] Email
     - [X] Exp in one hour
-  - [ ] Check that user exist
-- [ ] DB
-  - [ ] News
-    - [X] Image in S3
+  - [X] Check that user exist
+- [X] DB
+  - [X] News
+    - [ ] Image in S3
     - [X] Title
     - [X] Content
     - [X] Created at
-  - [ ] Users
+  - [X] Users
     - [X] Unique username
     - [X] Unique email
     - [X] Password with hash
-- [ ] With auth
-  - [ ] Add new
-  - [ ] List news by a user
-  - [ ] Delete new
-  - [ ] Filter by a user
-    - [ ] Title
-    - [ ] Content
-- [ ] Implement 10 elements by result
+- [X] With auth
+  - [X] Add new
+  - [X] List news by a user
+  - [X] Delete new
+  - [X] Filter by a user
+    - [X] Title
+    - [X] Content
+- [X] Implement 10 elements by result
 
 # Frontend requeriments
 

@@ -164,6 +164,144 @@ test('GET /posts arr', async () => {
   konanPostId = _id
 })
 
+test('GET /posts arr with offset 0', async () => {
+  const { text, statusCode } = await request(app)
+    .get('/posts/0')
+    .set({ Authorization: konanToken })
+
+  expect(statusCode).toBe(200)
+
+  const { data } = JSON.parse(text)
+  expect(data.length).toBe(1)
+
+  const [post] = data
+  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+
+  expect(_id).toBeTruthy()
+  expect(createdAt).toBeTruthy()
+  expect(updatedAt).toBeTruthy()
+  expect(user).toBeTruthy()
+  expect(current).toEqual({
+    content: 'Description',
+    image: '/image',
+    title: 'Akatsuki'
+  })
+
+  konanPostId = _id
+})
+
+test('GET /posts with offset 1 length 0', async () => {
+  const { text, statusCode } = await request(app)
+    .get('/posts/1')
+    .set({ Authorization: konanToken })
+
+  expect(statusCode).toBe(200)
+  expect(text).toBe('{"data":[]}')
+})
+
+test('POST /posts/filter without token', async () => {
+  const { text, statusCode } = await request(app)
+    .post('/posts/filter')
+    .send({ title: 'Akatsuki', content: 'Description' })
+
+  expect(statusCode).toBe(401)
+  expect(text).toBe('{"errors":["Missing token"]}')
+})
+
+test('POST /posts/filter bad token', async () => {
+  const { text, statusCode } = await request(app)
+    .post(`/posts/filter`)
+    .send({ title: 'Akatsuki', content: 'Description' })
+    .set({ Authorization: 'Bad token' })
+
+  expect(statusCode).toBe(401)
+  expect(text).toBe('{"errors":["Invalid token"]}')
+})
+
+test('POST /posts/filter arr with 2 terms', async () => {
+  const { text, statusCode } = await request(app)
+    .post('/posts/filter')
+    .send({ title: 'Akatsuki', content: 'Description' })
+    .set({ Authorization: konanToken })
+
+  expect(statusCode).toBe(200)
+
+  const { data } = JSON.parse(text)
+
+  expect(data.length).toBe(1)
+
+  const [post] = data
+  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+
+  expect(_id).toBeTruthy()
+  expect(createdAt).toBeTruthy()
+  expect(updatedAt).toBeTruthy()
+  expect(user).toBeTruthy()
+  expect(current).toEqual({
+    content: 'Description',
+    image: '/image',
+    title: 'Akatsuki'
+  })
+
+  konanPostId = _id
+})
+
+test('POST /posts/filter arr with title', async () => {
+  const { text, statusCode } = await request(app)
+    .post('/posts/filter')
+    .send({ title: 'Akatsuki' })
+    .set({ Authorization: konanToken })
+
+  expect(statusCode).toBe(200)
+
+  const { data } = JSON.parse(text)
+
+  expect(data.length).toBe(1)
+
+  const [post] = data
+  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+
+  expect(_id).toBeTruthy()
+  expect(createdAt).toBeTruthy()
+  expect(updatedAt).toBeTruthy()
+  expect(user).toBeTruthy()
+  expect(current).toEqual({
+    content: 'Description',
+    image: '/image',
+    title: 'Akatsuki'
+  })
+
+  konanPostId = _id
+})
+
+test('POST /posts/filter arr with content', async () => {
+  const { text, statusCode } = await request(app)
+    .post('/posts/filter')
+    .send({ content: 'Description' })
+    .set({ Authorization: konanToken })
+
+  expect(statusCode).toBe(200)
+
+  const { data } = JSON.parse(text)
+
+  expect(data.length).toBe(1)
+
+  const [post] = data
+  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+
+  expect(_id).toBeTruthy()
+  expect(createdAt).toBeTruthy()
+  expect(updatedAt).toBeTruthy()
+  expect(user).toBeTruthy()
+  expect(current).toEqual({
+    content: 'Description',
+    image: '/image',
+    title: 'Akatsuki'
+  })
+
+  konanPostId = _id
+})
+
 test('DELETE /posts/:postId bad post id', async () => {
   const { text, statusCode } = await request(app)
     .delete(`/posts/invalidValue`)

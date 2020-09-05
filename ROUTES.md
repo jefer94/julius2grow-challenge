@@ -1,15 +1,40 @@
+# Specifications
+
+[JSON:API](https://jsonapi.org/examples/)
+
 # Routes
 
 | Route | Method | Description |
 | :--- | :--- | :--- |
-| /token | POST | Delete post. |
-| / | POST | Add one user. |
+| /token | POST | Get token. |
+| /users | POST | Add one user. |
 | /users/me | GET | Get current user. |
-| /posts | GET | List posts. |
-| /posts/filter | POST | Filter posts. |
+| /posts/:offset? | GET | List posts. |
 | /posts | POST | Add one post. |
 | /posts/:id | DELETE | Delete post. |
+| /posts/filter | POST | Filter posts. |
 
-# Specifications
+# Objects
 
-[JSON:API](https://jsonapi.org/examples/)
+```typescript
+type Post = {
+  image: string
+  title: string
+  content: string
+  user: string
+}
+
+type User = {
+  username: string
+  email: string
+  password: string
+}
+```
+
+# Pagination
+
+```typescript
+type Offset = {
+  offset: number
+}
+```

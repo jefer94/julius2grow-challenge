@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose'
 
 export type UserFields = {
-  username: typeof Schema.Types.ObjectId
+  username: string
   email: string
   password: string
 }

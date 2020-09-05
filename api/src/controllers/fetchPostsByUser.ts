@@ -8,5 +8,13 @@ import Post from '../models/Post'
  * @param req - Express response.
  */
 export async function fetchPostsByUser(req: Request, res: Response): Promise<void> {
-  res.json({ data: await Post.find({ user: req.params.id }).lean() })
+  const limit = 10
+  const offset = req.params.offset || 0
+  res.json({
+    data: await Post.find({ user: req.params.id })
+      .limit(limit)
+      .skip(offset * limit)
+      .sort('createdAt')
+      .lean()
+  })
 }
