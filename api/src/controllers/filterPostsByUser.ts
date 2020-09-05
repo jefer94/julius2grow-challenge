@@ -9,7 +9,7 @@ import Post from '../models/Post'
  */
 export async function filterPostsByUser(req: Request, res: Response): Promise<void> {
   const limit = 10
-  const offset = req.body.offset || 0
+  const offset = +req.body.offset || 0
 
   const listByTitle = req.body.title ?
     await Post.find({ user: req.params.id, title: new RegExp(req.body.title) })

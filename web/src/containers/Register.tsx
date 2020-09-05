@@ -1,6 +1,7 @@
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
+import axios from 'axios'
 import Error from '../components/Error'
 // import Head from 'next/head'
 import inputCss from './Input.module.css'
@@ -8,6 +9,28 @@ import authCss from './Auth.module.css'
 // import Navbar from '../components/Navbar'
 
 export default function Home(): ReactElement {
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [error, setError] = useState('')
+
+  async function submit() {
+    setError('')
+    if (username && email && password && password === newPassword) {
+      console.log('aaa')
+      const response = await axios.post('http://localhost:9000/users', { username, email, password })
+      const { data } = response.data
+
+      if (!data)
+        setError('Nombre de usuario o contraseña equivocado')
+    }
+    else if (!username) setError('Nombre de usuario vacio')
+    else if (!email) setError('Correo vacio')
+    else setError('Contraseña vacia')
+    console.log(username, email, password, newPassword, error)
+  }
+
   return (
     <div className={authCss.flex}>
       <div className={authCss.container}>
@@ -16,25 +39,25 @@ export default function Home(): ReactElement {
         <Form>
           <FormGroup>
             <Label className={inputCss.label} for="username">Username</Label>
-            <Input autoComplete="username" className={inputCss.input} type="text" name="username" id="username" placeholder="Konan" />
+            <Input autoComplete="username" value={username} onChange={(v) => setUsername(v.target.value)} className={inputCss.input} type="text" name="username" id="username" placeholder="Konan" />
           </FormGroup>
           <FormGroup>
             <Label className={inputCss.label} for="email">Email</Label>
-            <Input className={inputCss.input} type="email" name="email" id="email" placeholder="Konan@gmail.com" />
+            <Input className={inputCss.input} type="email" value={email} onChange={(v) => setEmail(v.target.value)} name="email" id="email" placeholder="Konan@gmail.com" />
           </FormGroup>
           <FormGroup>
             <Label className={inputCss.label} for="current-password">Password</Label>
-            <Input autoComplete="current-password" className={inputCss.input} type="password" name="current-password" id="current-password" placeholder="P4ssw0rd!" />
+            <Input autoComplete="current-password" value={password} onChange={(v) => setPassword(v.target.value)} className={inputCss.input} type="password" name="current-password" id="current-password" placeholder="P4ssw0rd!" />
           </FormGroup>
           <FormGroup>
             <Label className={inputCss.label} for="new-password">Repeat password</Label>
-            <Input autoComplete="new-password" className={inputCss.input} type="password" name="new-password" id="new-password" placeholder="P4ssw0rd!" />
+            <Input autoComplete="new-password" value={newPassword} onChange={(v) => setNewPassword(v.target.value)} className={inputCss.input} type="password" name="new-password" id="new-password" placeholder="P4ssw0rd!" />
           </FormGroup>
-          <Error />
+          <Error error={error} />
           <span className={authCss.alternative}>Ya tienes una cuenta?</span>
           <a className={authCss.link} href="/register">acceder</a>
 
-          <Button className={authCss.submit} block>Ingresar</Button>
+          <Button className={authCss.submit} onClick={submit} block>Ingresar</Button>
         </Form>
       </div>
     </div> 

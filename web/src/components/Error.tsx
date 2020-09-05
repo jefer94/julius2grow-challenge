@@ -1,4 +1,4 @@
-import errorCss from '../styles/Navbar.module.css'
+import errorCss from './Error.module.css'
 import { ReactElement } from 'react'
 
 type ErrorProps = {
@@ -7,6 +7,6 @@ type ErrorProps = {
 
 export default function Error({ error }: ErrorProps): ReactElement {
   return (
-    error ? <p className={errorCss.error}>{error}</p> : <></>
+    error ? <span className={errorCss.error}>{error}</span> : <></>
   )
 }

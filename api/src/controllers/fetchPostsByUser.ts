@@ -9,7 +9,7 @@ import Post from '../models/Post'
  */
 export async function fetchPostsByUser(req: Request, res: Response): Promise<void> {
   const limit = 10
-  const offset = req.params.offset || 0
+  const offset = +req.params.offset || 0
   res.json({
     data: await Post.find({ user: req.params.id })
       .limit(limit)
