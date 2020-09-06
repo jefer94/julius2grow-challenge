@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import router from 'next/router'
 
 export default function logout(): void {
-  localStorage.setItem('__J2G__', '')
+  localStorage.setItem('__J2G__', null)
+  router.push('/login')
 }

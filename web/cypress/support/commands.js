@@ -23,3 +23,48 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+// Cypress.Commands.add('haveToken', () => {
+//   cy.log('env')
+//   cy.log(window().localStorage.getItem('__J2G__'))
+//   expect(window().localStorage.getItem('__J2G__')).not.have.length(0)
+// })
+
+// Cypress.Commands.add('haveToken', (token) => {
+//   cy.get('body').should(() => {
+//     window.localStorage.getItem('__J2G__', )
+//   })
+// })
+
+// Cypress.Commands.add('auth', () => {
+//   cy.fixture('user').then((user) => {
+//     cy.visit('/')
+//     cy.request('POST', 'http://localhost:9000/token', {
+//       username: user.username + 1,
+//       password: user.password
+//     }).then(({ body }) => {
+//       cy.get('body').should(() => {
+//         localStorage.setItem('__J2G__', body.token)
+//       })
+//     });
+//   })
+// });
+
+let LOCAL_STORAGE_MEMORY = {}
+
+Cypress.Commands.add("saveLocalStorageCache", () => {
+  Object.keys(localStorage).forEach(key => {
+    LOCAL_STORAGE_MEMORY[key] = localStorage[key]
+  })
+})
+
+Cypress.Commands.add("restoreLocalStorageCache", () => {
+  Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
+    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key])
+  })
+})
+
+Cypress.Commands.add("clearLocalStorageCache", () => {
+  localStorage.clear()
+  LOCAL_STORAGE_MEMORY = {}
+})
