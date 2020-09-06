@@ -1,11 +1,13 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Card from '../components/Card'
 import Cards from '../components/Cards'
 import Post from '../containers/Post'
+import checkAuthCredentials from '../hooks/checkAuthCredentials'
 
 export default function Home(): ReactElement {
+  useEffect(checkAuthCredentials)
   return (
     <div>
       <Head>

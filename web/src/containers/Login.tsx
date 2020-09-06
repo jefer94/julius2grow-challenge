@@ -5,6 +5,7 @@ import Error from '../components/Error'
 // import Head from 'next/head'
 import inputCss from './Input.module.css'
 import authCss from './Auth.module.css'
+import setToken from '../hooks/setToken'
 // import Navbar from '../components/Navbar'
 
 export default function Login(): ReactElement {
@@ -17,10 +18,14 @@ export default function Login(): ReactElement {
     if (username && password) {
       console.log('aaa')
       const response = await axios.post('http://localhost:9000/token', { username, password })
-      const { data } = response.data
+      const { token } = response.data
 
-      if (!data)
+      if (!token) {
         setError('Nombre de usuario o contraseña equivocado')
+        return
+      }
+
+      setToken(token)
     }
     else if (!username) setError('Nombre de usuario vacio')
     else setError('Contraseña vacia')

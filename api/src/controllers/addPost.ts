@@ -15,5 +15,8 @@ export async function addPost(req: Request, res: Response): Promise<void> {
   }
   catch(e) {
     res.json({ errors: [e] })
+    // if (e.keyPattern.image) res.json({ errors: ['dup key: image'] })
+    // else if (e.keyPattern.title) res.json({ errors: ['dup key: title'] })
+    // else res.json({ errors: ['dup key: content'] })
   }
 }

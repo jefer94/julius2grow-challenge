@@ -6,6 +6,7 @@ import Error from '../components/Error'
 // import Head from 'next/head'
 import inputCss from './Input.module.css'
 import authCss from './Auth.module.css'
+import setToken from '../hooks/setToken'
 // import Navbar from '../components/Navbar'
 
 export default function Home(): ReactElement {
@@ -20,15 +21,22 @@ export default function Home(): ReactElement {
     if (username && email && password && password === newPassword) {
       console.log('aaa')
       const response = await axios.post('http://localhost:9000/users', { username, email, password })
-      const { data } = response.data
+      const { token } = response.data
 
-      if (!data)
-        setError('Nombre de usuario o contraseña equivocado')
+      if (!token) {
+        const [error] = response.data.errors
+        if (error === 'dup key: username') setError('Nombre de usuario duplicado')
+        else if (error === 'dup key: email') setError('Email duplicado')
+        else setError('Error desconocido')
+        return
+      }
+
+      setToken(token)
     }
     else if (!username) setError('Nombre de usuario vacio')
     else if (!email) setError('Correo vacio')
-    else setError('Contraseña vacia')
-    console.log(username, email, password, newPassword, error)
+    else if (!password) setError('Contraseña vacia')
+    else setError('Contraseñas no coinciden')
   }
 
   return (

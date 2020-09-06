@@ -18,12 +18,13 @@ export async function addUser(req: Request, res: Response): Promise<void> {
     const payload = { id: user._id, email: user.email }
     const token = jwt.sign(payload, process.env.SECRET, {
 			expiresIn: 3600
-    });
+    })
     
-		res.json({ token: token })
+		res.json({ token })
   }
   catch(e) {
-    // console.log(e)
-    res.json({ errors: [e] })
+    if (e.keyPattern.username) res.json({ errors: ['dup key: username'] })
+    else if (e.keyPattern.email) res.json({ errors: ['dup key: email'] })
+    else res.json({ errors: ['dup key: password'] })
   }
 }

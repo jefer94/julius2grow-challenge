@@ -5,7 +5,6 @@
   "repository": "https://github.com/jefer94/julius2grow-challenge.git",
   "author": "jefer94 <jdefreitaspinto@gmail.com>",
   "license": "MIT",
-
   "scripts": {
     "dev:api": "yarn docker:mongo && cd api && yarn dev",
     "dev:web": "cd web && yarn dev",
@@ -15,6 +14,7 @@
     "test:p2p": "yarn docker:mongo && yarn run-p --race dev:api dev:web cypress:open"
   },
   "devDependencies": {
+    "mongoose": "^5.10.3",
     "npm-run-all": "^4.1.5"
   }
 }
