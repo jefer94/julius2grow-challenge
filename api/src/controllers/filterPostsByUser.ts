@@ -11,36 +11,11 @@ export async function filterPostsByUser(req: Request, res: Response): Promise<vo
   const limit = 10
   const offset = +req.body.offset || 0
 
-  res.json({ data:  await Post.find({ $or: [{ user: req.params.id, title: new RegExp(req.body.title) },
-                          { user: req.params.id, content: new RegExp(req.body.content) }] })
+  res.json({ data: await Post.find({ $or: [{ user: req.params.id, title: new RegExp(req.body.title) },
+                                           { user: req.params.id, content: new RegExp(req.body.content) }] })
     .populate({ path: 'user', model: 'User', select: 'username' })
     .limit(limit)
     .skip(offset * limit)
     .sort('createdAt')
     .lean() })
-
-
-  // const listByTitle = req.body.title ?
-  //   await Post.find({ user: req.params.id, title: new RegExp(req.body.title) })
-  //     .populate({ path: 'user', model: 'User', select: 'username' })
-  //     .limit(limit)
-  //     .skip(offset * limit)
-  //     .sort('createdAt')
-  //     .lean() :
-  //   []
-
-  // const listByContent = req.body.content ?
-  //   await Post.find({ user: req.params.id, content: new RegExp(req.body.content) })
-  //     .populate({ path: 'user', model: 'User', select: 'username' })
-  //     .limit(limit)
-  //     .skip(offset * limit)
-  //     .sort('createdAt')
-  //     .lean() :
-  //   []
-  // // Post.populate(listByContent)
-
-  // // console.log()
-
-  // const filterListByTitle = listByTitle.filter(({ _id }) => !listByContent.some((v) => v._id !== _id))
-  // res.json({ data: [...filterListByTitle, ...listByContent] })
 }

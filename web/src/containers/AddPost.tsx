@@ -15,18 +15,31 @@ import { PostsContext } from '../contexts'
 
 export default function AddPost(): ReactElement {
   const { addPost } = useContext(PostsContext)
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState<FileList>(null)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
+
+  async function urlOfImage(): Promise<string> {
+    if (image && image[0]) {
+      var data = new FormData()
+      data.append('banner', image[0], 'filename')
+      const response = await axios.post('http://localhost:9000/images', data,
+            { headers: { ...construcHeaders(), 'Content-Type': 'multipart/form-data' } })
+      return response.data.data
+    }
+    return ''
+  }
+
   async function submit() {
-    const image = '/'
+    // const image = '/'
     setError('')
-    if (title && content && image) {
+    if (title && content && image && image[0]) {
       try {
-        const response = await axios.post('http://localhost:9000/posts', { title, content, image },
+        urlOfImage()
+        const response = await axios.post('http://localhost:9000/posts', { title, content, image: await urlOfImage() },
           { headers: construcHeaders() })
         
         if (!response.data.data) {
@@ -36,7 +49,7 @@ export default function AddPost(): ReactElement {
   
         setTitle('')
         setContent('')
-        setImage('')
+        setImage(null)
         if (addPost) addPost(response.data.data)
         setSuccess('Post agregado')
       }
@@ -76,9 +89,9 @@ export default function AddPost(): ReactElement {
           <Field
             id="image"
             label="Image"
-            value={image}
+            // value={image}
             type="file"
-            onChange={(v) => setImage(v.target.value)}
+            onChange={(v) => setImage(v.target.files)}
           />
 
           <Error error={error} />

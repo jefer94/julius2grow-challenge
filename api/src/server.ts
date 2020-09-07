@@ -4,7 +4,6 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
-import ora from 'ora'
 import multer  from 'multer'
 import authMiddleware from './middlewares/auth'
 import { getToken, addUser, getUser, fetchPostsByUser, filterPostsByUser, addPost, deletePost, uploadImage } from './controllers'
@@ -16,7 +15,7 @@ var upload = multer({ dest: 'public/uploads/' })
 const port = process.env.PORT || 9000
 
 app
-  .use(morgan('combined'))
+  .use(morgan('short'))
   .use(helmet())
   .use(cors())
   .use(bodyParser.json())
@@ -33,6 +32,6 @@ app.post('/posts/filter', authMiddleware, filterPostsByUser)
 app.post('/images', authMiddleware, upload.single('banner'), uploadImage)
 
 export function listen() {
-  const spinner = ora(`Server ready in localhost:${port}`).start()
+  console.log(`Server ready in localhost:${port}`)
   app.listen(port)
 }

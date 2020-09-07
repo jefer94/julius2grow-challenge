@@ -33,18 +33,9 @@ export default async function authMiddleware(req: Request, res: Response, next: 
       return
     }
 
-    // req.
     req.params.id = obj.id
 
     next()
-    // jwt.verify(token, process.env.SECRET, (err, decoded) => {
-    //   if (err) {
-    //     return res.json({ mensaje: 'Token inválida' })
-    //   } else {
-    //     req.decoded = decoded
-    //     next()
-    //   }
-    // })
   }
   catch {
     res.status(401)

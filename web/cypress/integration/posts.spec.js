@@ -91,8 +91,25 @@ context('Add post', () => {
   })
 
   it('Was added', () => {
-    cy.get('#add-post').click()
-    cy.wait(500)
+    // cy.fixture('unnamed.jpg').as('logo')
+    // cy.get('#image').then(function($input) {
+    //   // convert the logo base64 string to a blob
+    //   const blob = Cypress.Blob.base64StringToBlob(this.logo, 'image/jpg')
+
+    //   // pass the blob to the fileupload jQuery plugin
+    //   // https://github.com/blueimp/jQuery-File-Upload
+    //   // used in your application's code
+    //   // which initiates a programmatic upload
+    //   $input.fileupload('add', { files: blob })
+
+    //   cy.get('#add-post').click()
+    //   cy.wait(500)
+    // })
+    cy.fixture('unnamed.jpg').then((file) => {
+      cy.get('#image').attachFile(file)
+      cy.get('#add-post').click()
+      cy.wait(500)
+    })
   })
 
   it('List was added', () => {

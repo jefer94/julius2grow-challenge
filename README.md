@@ -87,7 +87,7 @@ type Offset = {
 - [X] Docker compose
 - [ ] Heroku
 - [ ] Mongo Atlas https://www.mongodb.com/cloud/atlas
-- [ ] Redux or context
+- [X] Redux or context
 - [X] JWT
 
 # API requeriments
@@ -119,15 +119,15 @@ type Offset = {
 
 # Frontend requeriments
 
-- [ ] Pages
-  - [ ] Without auth
+- [X] Pages
+  - [X] Without auth
     - [X] Login
     - [X] Register
-  - [ ] With auth
-    - [ ] Post
+  - [X] With auth
+    - [X] Post
       - [X] List
       - [X] Add
-      - [ ] Filter
+      - [X] Filter
       - [X] Delete
 
 # Where are upload the challenge

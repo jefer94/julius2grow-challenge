@@ -6,7 +6,8 @@ import { InputType } from 'reactstrap/lib/Input'
 
 interface OnChangeProps {
   readonly target: {
-    readonly value: string
+    readonly value?: string
+    readonly files?: FileList
   }
 }
 
@@ -14,7 +15,7 @@ type FieldProps = {
   readonly type?: InputType
   readonly id: string
   readonly label: string
-  readonly value?: number | string
+  readonly value?: number | string | FileList
   readonly onChange: (v: OnChangeProps) => void
   readonly placeholder?: string
   readonly autoComplete?: string

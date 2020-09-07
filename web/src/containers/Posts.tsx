@@ -29,7 +29,7 @@ export default function Home(): ReactElement {
             title={post.title}
             content={post.content}
             onRemove={removePost}
-            image="/unnamed.jpg" />
+            image={`http://localhost:9000${post.image}`} />
         ) )}
       </Cards>
       <div className={css.sidebar}>

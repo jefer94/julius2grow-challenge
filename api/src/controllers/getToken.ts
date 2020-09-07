@@ -19,7 +19,7 @@ export async function getToken(req: Request, res: Response): Promise<void> {
 			expiresIn: 3600
     });
     
-		res.json({ token: token })
+		res.json({ token })
   }
   catch(e) {
     console.log(e)

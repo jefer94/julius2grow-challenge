@@ -49,6 +49,7 @@
 //     });
 //   })
 // });
+import 'cypress-file-upload'
 
 let LOCAL_STORAGE_MEMORY = {}
 
