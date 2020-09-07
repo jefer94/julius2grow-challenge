@@ -19,6 +19,10 @@ type Post = {
   readonly title: string
   readonly content: string
   readonly image: string
+  readonly user: {
+    readonly _id?: string,
+    readonly username: string
+  }
   readonly createdAt: string
   readonly updatedAt: string
 }

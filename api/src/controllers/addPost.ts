@@ -11,7 +11,8 @@ export async function addPost(req: Request, res: Response): Promise<void> {
   try {
     const post = new Post({ ...req.body, user: req.params.id })
     await post.save()
-    res.json({ data: post })
+    console.log(await Post.populate(post, { path: 'user', model: 'User', select: 'username' }))
+    res.json({ data: await Post.populate(post, { path: 'user', model: 'User', select: 'username' }) })
   }
   catch(e) {
     res.json({ errors: [e] })

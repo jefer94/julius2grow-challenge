@@ -55,7 +55,7 @@ export default function FilterPosts(): ReactElement {
           <Error error={error} />
           <Success message={success} />
 
-          <Button className={authCss.submit} onClick={submit} block>Buscar</Button>
+          <Button id="filter-posts" className={authCss.submit} onClick={submit} block>Buscar</Button>
         </Form>
     </div>
   )

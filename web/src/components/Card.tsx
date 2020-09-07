@@ -25,6 +25,8 @@ export default function Card({ id, user, date, title, content, image, onRemove }
   //   onRemove(id)
   // }
 
+  const localDate = new Date(date)
+
   function onModalClick(status: boolean) {
     if (status) onRemove(id)
     else setShow(false)
@@ -43,7 +45,7 @@ export default function Card({ id, user, date, title, content, image, onRemove }
       <div style={{ height: 48 }}>
         <div style={{ width: 370, display: 'inline-block' }}>
           <CardUser user={user} />
-          <CardDate date={date} />
+          <CardDate date={`${localDate.toLocaleTimeString()} ${localDate.toLocaleDateString()}`} />
         </div>
         <FontAwesomeIcon className="remove-post" onClick={() => setShow(true)} icon={faTrashAlt} style={{
           width: 18,

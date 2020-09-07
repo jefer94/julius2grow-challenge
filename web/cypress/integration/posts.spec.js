@@ -93,9 +93,6 @@ context('Add post', () => {
   it('Was added', () => {
     cy.get('#add-post').click()
     cy.wait(500)
-    cy.contains('Post agregado').as('post')
-    cy.wait(2001)
-    cy.get('@post').should('not.exist')
   })
 
   it('List was added', () => {
@@ -112,5 +109,35 @@ context('Add post', () => {
     cy.get('#posts').children().should('not.exist')
     cy.reload()
     cy.get('#posts').children().should('not.exist')
+  })
+
+  it('Add post', () => {
+    cy.fixture('post').then((post) => {
+      cy.get('#title').type(post.title)
+      cy.get('#content').type(post.content)
+      cy.get('#add-post').click()
+    })
+  })
+
+  it('Filter not have title', () => {
+    cy.get('#filter-posts').click()
+    cy.contains('No estas haciendo una busqueda por titulo o contenido')
+  })
+
+  it('Filter with title', () => {
+    cy.fixture('post').then((post) => {
+      cy.get('#filter-title').type(post.title)
+      cy.get('#filter-posts').click()
+      cy.get('#posts').children().should('exist')
+    })
+  })
+
+  it('Filter with content', () => {
+    cy.fixture('post').then((post) => {
+      cy.get('#filter-title').clear()
+      cy.get('#filter-content').type(post.content)
+      cy.get('#filter-posts').click()
+      cy.get('#posts').children().should('exist')
+    })
   })
 })

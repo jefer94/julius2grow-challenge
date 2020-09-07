@@ -12,7 +12,7 @@ export async function fetchPostsByUser(req: Request, res: Response): Promise<voi
   const offset = +req.params.offset || 0
   res.json({
     data: await Post.find({ user: req.params.id })
-      .populate({ path: 'username', model: 'User' })
+      .populate({ path: 'user', model: 'User', select: 'username' })
       .limit(limit)
       .skip(offset * limit)
       .sort('createdAt')

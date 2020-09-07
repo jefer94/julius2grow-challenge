@@ -24,8 +24,8 @@ export default function Home(): ReactElement {
           <Card
             id={post._id}
             key={key}
-            user="jefer94"
-            date="00/00/00"
+            user={post.user.username}
+            date={post.createdAt}
             title={post.title}
             content={post.content}
             onRemove={removePost}
