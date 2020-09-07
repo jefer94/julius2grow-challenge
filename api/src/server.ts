@@ -5,10 +5,14 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import ora from 'ora'
+import multer  from 'multer'
 import authMiddleware from './middlewares/auth'
-import { getToken, addUser, getUser, fetchPostsByUser, filterPostsByUser, addPost, deletePost } from './controllers'
+import { getToken, addUser, getUser, fetchPostsByUser, filterPostsByUser, addPost, deletePost, uploadImage } from './controllers'
 
 export const app = express()
+app.use(express.static('public'));
+
+var upload = multer({ dest: 'public/uploads/' })
 const port = process.env.PORT || 9000
 
 app
@@ -26,6 +30,7 @@ app.get('/posts/:offset?', authMiddleware, fetchPostsByUser)
 app.post('/posts', authMiddleware, addPost)
 app.delete('/posts/:postId', authMiddleware, deletePost)
 app.post('/posts/filter', authMiddleware, filterPostsByUser)
+app.post('/images', authMiddleware, upload.single('banner'), uploadImage)
 
 export function listen() {
   const spinner = ora(`Server ready in localhost:${port}`).start()

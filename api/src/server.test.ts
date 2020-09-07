@@ -355,3 +355,13 @@ test('DELETE /posts/:postId', async () => {
     status: 'successful'
   } })
 })
+
+test('POST /images', async () => {
+  const { text, statusCode } = await request(app)
+    .post('/images')
+    .set({ Authorization: konanToken })
+    .attach('banner', 'images/unnamed.jpg')
+
+  expect(statusCode).toBe(200)
+  expect(/^\{\"data\":\"\/uploads\/.+\"\}$/.test(text)).toBeTruthy()
+})

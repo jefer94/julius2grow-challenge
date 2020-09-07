@@ -4,3 +4,4 @@ coverage
 .next
 yarn-error.log
 .env
+uploads

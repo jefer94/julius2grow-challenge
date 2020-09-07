@@ -9,6 +9,7 @@ import Post from '../models/Post'
  */
 export async function addPost(req: Request, res: Response): Promise<void> {
   try {
+    console.log('add post', req.file)
     const post = new Post({ ...req.body, user: req.params.id })
     await post.save()
     console.log(await Post.populate(post, { path: 'user', model: 'User', select: 'username' }))
