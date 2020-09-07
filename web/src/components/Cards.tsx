@@ -1,9 +1,22 @@
-import css from './Cards.module.css'
+import { ReactElement, ReactNode } from 'react'
 
-export default function Cards({ children, id }) {
+type CardsProps = {
+  readonly children?: ReactNode
+  readonly id?: string
+}
+
+
+export default function Cards({ children, id }: CardsProps): ReactElement {
   return (
-    <div id={id} className={css.container}>
-      {children}
-    </div>
+    <>
+      <style jsx>{`
+        .container {
+          width: 400px;
+        }
+      `}</style>
+      <div id={id} className="container">
+        {children}
+      </div>
+    </>
   )
 }

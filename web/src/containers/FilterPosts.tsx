@@ -1,17 +1,10 @@
 import { Button, Form } from 'reactstrap'
 
 import { ReactElement, useState, useEffect, useContext } from 'react'
-import axios from 'axios'
 import Error from '../components/Error'
 import Success from '../components/Success'
-// import Head from 'next/head'
-import authCss from './Auth.module.css'
-import css from './AddPost.module.css'
-import construcHeaders from '../hooks/construcHeaders'
 import Field from '../components/Field'
-import logout from '../hooks/logout'
 import { PostsContext } from '../contexts'
-// import Navbar from '../components/Navbar'
 
 export default function FilterPosts(): ReactElement {
   const { addPost, filterPost } = useContext(PostsContext)
@@ -32,8 +25,32 @@ export default function FilterPosts(): ReactElement {
   }, [success])
 
   return (
-    <div className={css.container}>
-      <h1 className={authCss.title}>Filtrar Posts</h1>
+    <div className="container">
+      <style jsx>{`
+        .container {
+          margin-bottom: 30px;
+        }
+
+        .title {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 24px;
+          line-height: 130%;
+          text-align: center;
+        }
+
+        .submit {
+          background-color: #00CFFD;
+          border-color: #00CFFD;
+        }
+
+        .submit:hover {
+          background-color: #00CFFD;
+          border-color: #00CFFD;
+        }
+      `}</style>
+      <h1 className="title">Filtrar Posts</h1>
       <Form>
           <Field
             id="filter-title"
@@ -55,7 +72,7 @@ export default function FilterPosts(): ReactElement {
           <Error error={error} />
           <Success message={success} />
 
-          <Button id="filter-posts" className={authCss.submit} onClick={submit} block>Buscar</Button>
+          <Button id="filter-posts" className="submit" onClick={submit} block>Buscar</Button>
         </Form>
     </div>
   )

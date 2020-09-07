@@ -15,10 +15,11 @@ type CardProps = {
   readonly title: string
   readonly content: string
   readonly image: string
+  readonly key?: string
   readonly onRemove?: (id: string) => void
 }
 
-export default function Card({ id, user, date, title, content, image, onRemove }: CardProps): ReactElement {
+export default function Card({ id, user, date, title, content, image, key, onRemove }: CardProps): ReactElement {
   const [show, setShow] = useState(false)
 
   // function remove() {
@@ -33,7 +34,7 @@ export default function Card({ id, user, date, title, content, image, onRemove }
   }
 
   return (
-    <div style={{ width: 398 }}>
+    <div style={{ width: 398 }} key={key}>
       <Modal
         show={show}
         onClick={onModalClick}

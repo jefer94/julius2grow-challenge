@@ -3,21 +3,19 @@ import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Posts from '../containers/Posts'
 import checkAuthCredentials from '../hooks/checkAuthCredentials'
-import Contexts, { PostsContext } from '../contexts'
+import { PostsContextProvider } from '../contexts/PostsContext'
 
+console.log('aaaaaa', process.env.NEXT_PUBLIC_ANALYTICS_ID)
 export default function Home(): ReactElement {
-  const {} = useContext(PostsContext)
   useEffect(checkAuthCredentials)
+  console.log('aaaaaa', process.env.NEXT_PUBLIC_ANALYTICS_ID, process.env.SECRET)
+
   return (
     <div>
-      <Head>
-        <title>Posts</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Navbar />
-      <Contexts>
+      <PostsContextProvider>
         <Posts />
-      </Contexts>
+      </PostsContextProvider>
     </div>
   )
 }

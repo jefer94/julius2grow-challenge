@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import { PostsContextProvider } from './PostsContext'
 
 type ProviderProps = {
-  readonly children: ReactNode
+  readonly children: ReactElement
 }
 
 /**

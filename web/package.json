@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env API=http://localhost:3000 next dev",
-    "build": "cross-env API=http://localhost:3000 next build",
-    "start": "cross-env API=http://localhost:3000 next start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
@@ -28,6 +28,7 @@
     "cross-env": "^7.0.2",
     "cypress": "^5.1.0",
     "cypress-file-upload": "^4.1.1",
+    "dotenv": "^8.2.0",
     "jest": "^26.4.2",
     "ts-jest": "^26.3.0",
     "typescript": "^4.0.2"

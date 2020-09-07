@@ -5,8 +5,6 @@ import axios from 'axios'
 import Error from '../components/Error'
 import Success from '../components/Success'
 // import Head from 'next/head'
-import authCss from './Auth.module.css'
-import css from './AddPost.module.css'
 import construcHeaders from '../hooks/construcHeaders'
 import Field from '../components/Field'
 import logout from '../hooks/logout'
@@ -26,7 +24,7 @@ export default function AddPost(): ReactElement {
     if (image && image[0]) {
       var data = new FormData()
       data.append('banner', image[0], 'filename')
-      const response = await axios.post('http://localhost:9000/images', data,
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API.replace(/\/$/, '')}/images`, data,
             { headers: { ...construcHeaders(), 'Content-Type': 'multipart/form-data' } })
       return response.data.data
     }
@@ -39,7 +37,7 @@ export default function AddPost(): ReactElement {
     if (title && content && image && image[0]) {
       try {
         urlOfImage()
-        const response = await axios.post('http://localhost:9000/posts', { title, content, image: await urlOfImage() },
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API.replace(/\/$/, '')}/posts`, { title, content, image: await urlOfImage() },
           { headers: construcHeaders() })
         
         if (!response.data.data) {
@@ -67,8 +65,32 @@ export default function AddPost(): ReactElement {
   }, [success])
 
   return (
-    <div className={css.container}>
-      <h1 className={authCss.title}>Add new post</h1>
+    <div className="container">
+      <style jsx>{`
+        .container {
+          margin-bottom: 30px;
+        }
+
+        .title {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 24px;
+          line-height: 130%;
+          text-align: center;
+        }
+
+        .submit {
+          background-color: #00CFFD;
+          border-color: #00CFFD;
+        }
+
+        .submit:hover {
+          background-color: #00CFFD;
+          border-color: #00CFFD;
+        }
+      `}</style>
+      <h1 className="title">Add new post</h1>
       <Form>
           <Field
             id="title"
@@ -97,7 +119,7 @@ export default function AddPost(): ReactElement {
           <Error error={error} />
           <Success message={success} />
 
-          <Button id="add-post" className={authCss.submit} onClick={submit} block>Publicar</Button>
+          <Button id="add-post" className="submit" onClick={submit} block>Publicar</Button>
         </Form>
     </div>
   )

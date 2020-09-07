@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, ReactElement, ReactNode } from 'react'
+import React, { useEffect, useState, createContext, ReactElement, ReactNode, ReactChildren } from 'react'
 import axios from 'axios'
 import construcHeaders from '../hooks/construcHeaders'
 
@@ -33,7 +33,7 @@ type FilterPost = {
 }
 
 type PostsContextProviderProps = {
-  readonly children: ReactNode
+  readonly children?: ReactNode
 }
 
 /**
@@ -50,7 +50,7 @@ export function PostsContextProvider({ children }: PostsContextProviderProps): R
   useEffect(fetch, [])
 
   function fetch(): void {
-    axios.get(`http://localhost:9000/posts/${!isFilter ? offset : 0}`, { headers: construcHeaders() }).then((response) => {
+    axios.get(`${process.env.NEXT_PUBLIC_API.replace(/\/$/, '')}/posts/${!isFilter ? offset : 0}`, { headers: construcHeaders() }).then((response) => {
       if (response.data.data) setPosts(response.data.data)
     }).catch((e) => { console.error(e) })
     if (!isFilter) setOffset(offset + 1)
@@ -63,14 +63,14 @@ export function PostsContextProvider({ children }: PostsContextProviderProps): R
   }
 
   function removePost(id: string): void {
-    axios.delete(`http://localhost:9000/posts/${id}`, { headers: construcHeaders() })
+    axios.delete(`${process.env.NEXT_PUBLIC_API.replace(/\/$/, '')}/posts/${id}`, { headers: construcHeaders() })
       .then()
       .catch((e) => { console.error(e) })
     setPosts(posts.filter(({ _id }) => _id !== id))
   }
 
   function filterPost(filter: FilterPost): void {
-    axios.post('http://localhost:9000/posts/filter', { ...filter, offset: isFilter ? offset : 0 }, { headers: construcHeaders() }).then((response) => {
+    axios.post(`${process.env.NEXT_PUBLIC_API.replace(/\/$/, '')}/posts/filter`, { ...filter, offset: isFilter ? offset : 0 }, { headers: construcHeaders() }).then((response) => {
       if (response.data.data) setPosts(response.data.data)
     }).catch((e) => { console.error(e) })
     if (isFilter) setOffset(offset + 1)

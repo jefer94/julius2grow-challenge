@@ -4,5 +4,5 @@ import db from './db'
 
 dotenv.config()
 
-db()
+db(process.env.MONGO)
 listen()

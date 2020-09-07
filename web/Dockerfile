@@ -9,10 +9,11 @@ WORKDIR /usr/src/current
 COPY tsconfig.json tsconfig.json
 COPY package.json package.json
 
-RUN yarn install --production=true && \
-    yarn global add typescript
+RUN yarn
 
 COPY src src
-RUN tsc --build ./tsconfig.json
 
-CMD node ./dist/index.js
+ENV NEXT_PUBLIC_API http://localhost:9000
+RUN NEXT_PUBLIC_API=http://localhost:9000 yarn build
+
+CMD NEXT_PUBLIC_API=http://localhost:9000 yarn start
