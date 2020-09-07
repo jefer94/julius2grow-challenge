@@ -133,9 +133,15 @@ test('POST /posts', async () => {
     .set({ Authorization: konanToken })
 
   expect(statusCode).toBe(200)
-  expect(JSON.parse(text)).toEqual({ data: {
-    status: 'successful'
-  } })
+  const { data } = JSON.parse(text)
+  var { _id, __v, createdAt, updatedAt, user, ...obj } = data
+  expect(_id).toBeTruthy()
+  expect(Number.isInteger(__v)).toBeTruthy()
+  expect(createdAt).toBeTruthy()
+  expect(updatedAt).toBeTruthy()
+  expect(obj).toEqual({ image: '/image', title: 'Akatsuki', content: 'Description' })
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
 })
 
 test('GET /posts arr', async () => {
@@ -149,12 +155,11 @@ test('GET /posts arr', async () => {
   expect(data.length).toBe(1)
 
   const [post] = data
-  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+  var { _id, __v, user, createdAt, updatedAt, ...current } = post
 
   expect(_id).toBeTruthy()
   expect(createdAt).toBeTruthy()
   expect(updatedAt).toBeTruthy()
-  expect(user).toBeTruthy()
   expect(current).toEqual({
     content: 'Description',
     image: '/image',
@@ -162,6 +167,10 @@ test('GET /posts arr', async () => {
   })
 
   konanPostId = _id
+
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
+
 })
 
 test('GET /posts arr with offset 0', async () => {
@@ -175,12 +184,11 @@ test('GET /posts arr with offset 0', async () => {
   expect(data.length).toBe(1)
 
   const [post] = data
-  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+  var { _id, __v, user, createdAt, updatedAt, ...current } = post
 
   expect(_id).toBeTruthy()
   expect(createdAt).toBeTruthy()
   expect(updatedAt).toBeTruthy()
-  expect(user).toBeTruthy()
   expect(current).toEqual({
     content: 'Description',
     image: '/image',
@@ -188,6 +196,9 @@ test('GET /posts arr with offset 0', async () => {
   })
 
   konanPostId = _id
+
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
 })
 
 test('GET /posts with offset 1 length 0', async () => {
@@ -231,12 +242,11 @@ test('POST /posts/filter arr with 2 terms', async () => {
   expect(data.length).toBe(1)
 
   const [post] = data
-  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+  var { _id, __v, user, createdAt, updatedAt, ...current } = post
 
   expect(_id).toBeTruthy()
   expect(createdAt).toBeTruthy()
   expect(updatedAt).toBeTruthy()
-  expect(user).toBeTruthy()
   expect(current).toEqual({
     content: 'Description',
     image: '/image',
@@ -244,6 +254,9 @@ test('POST /posts/filter arr with 2 terms', async () => {
   })
 
   konanPostId = _id
+
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
 })
 
 test('POST /posts/filter arr with title', async () => {
@@ -259,12 +272,11 @@ test('POST /posts/filter arr with title', async () => {
   expect(data.length).toBe(1)
 
   const [post] = data
-  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+  var { _id, __v, user, createdAt, updatedAt, ...current } = post
 
   expect(_id).toBeTruthy()
   expect(createdAt).toBeTruthy()
   expect(updatedAt).toBeTruthy()
-  expect(user).toBeTruthy()
   expect(current).toEqual({
     content: 'Description',
     image: '/image',
@@ -272,6 +284,9 @@ test('POST /posts/filter arr with title', async () => {
   })
 
   konanPostId = _id
+
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
 })
 
 test('POST /posts/filter arr with content', async () => {
@@ -287,12 +302,11 @@ test('POST /posts/filter arr with content', async () => {
   expect(data.length).toBe(1)
 
   const [post] = data
-  const { _id, __v, user, createdAt, updatedAt, ...current } = post
+  var { _id, __v, user, createdAt, updatedAt, ...current } = post
 
   expect(_id).toBeTruthy()
   expect(createdAt).toBeTruthy()
   expect(updatedAt).toBeTruthy()
-  expect(user).toBeTruthy()
   expect(current).toEqual({
     content: 'Description',
     image: '/image',
@@ -300,6 +314,9 @@ test('POST /posts/filter arr with content', async () => {
   })
 
   konanPostId = _id
+
+  var { _id, ...obj } = user
+  expect(obj).toEqual({ username: 'Konan' })
 })
 
 test('DELETE /posts/:postId bad post id', async () => {
