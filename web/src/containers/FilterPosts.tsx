@@ -13,41 +13,19 @@ import logout from '../hooks/logout'
 import { PostsContext } from '../contexts'
 // import Navbar from '../components/Navbar'
 
-export default function AddPost(): ReactElement {
-  const { addPost } = useContext(PostsContext)
-  const [image, setImage] = useState('')
+export default function FilterPosts(): ReactElement {
+  const { addPost, filterPost } = useContext(PostsContext)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
   async function submit() {
-    const image = '/'
     setError('')
-    if (title && content && image) {
-      try {
-        const response = await axios.post('http://localhost:9000/posts', { title, content, image },
-          { headers: construcHeaders() })
-        
-        if (!response.data.data) {
-          setError('Error desconocido')
-          return
-        }
-  
-        setTitle('')
-        setContent('')
-        setImage('')
-        if (addPost) addPost(response.data.data)
-        setSuccess('Post agregado')
-      }
-      catch(e) {
-        console.error(e)
-        logout()
-      }
+    if (title || content) {
+      filterPost({ title, content })
     }
-    else if (!title) setError('Titulo vacio')
-    else if (!content) setError('Contenido vacio')
-    else setError('Contenido vacio')
+    else setError('No estas haciendo una busqueda por titulo o contenido')
   }
   useEffect(() => {
     if (success) setTimeout(() => setSuccess(''), 2000)
@@ -55,10 +33,10 @@ export default function AddPost(): ReactElement {
 
   return (
     <div className={css.container}>
-      <h1 className={authCss.title}>Add new post</h1>
+      <h1 className={authCss.title}>Filtrar Posts</h1>
       <Form>
           <Field
-            id="title"
+            id="filter-title"
             label="Title"
             value={title}
             type="text"
@@ -66,25 +44,18 @@ export default function AddPost(): ReactElement {
             onChange={(v) => setTitle(v.target.value)}
           />
           <Field
-            id="content"
+            id="filter-content"
             label="Content"
             value={content}
             type="textarea"
             placeholder="Contenido del increible post"
             onChange={(v) => setContent(v.target.value)}
           />
-          <Field
-            id="image"
-            label="Image"
-            value={image}
-            type="file"
-            onChange={(v) => setImage(v.target.value)}
-          />
 
           <Error error={error} />
           <Success message={success} />
 
-          <Button id="add-post" className={authCss.submit} onClick={submit} block>Publicar</Button>
+          <Button className={authCss.submit} onClick={submit} block>Buscar</Button>
         </Form>
     </div>
   )

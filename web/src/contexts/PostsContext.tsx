@@ -7,6 +7,7 @@ type PostsContextAtrrs = {
   readonly fetch?: () => void
   readonly addPost?: (post: Post) => void
   readonly removePost?: (id: string) => void
+  readonly filterPost?: (filter: FilterPost) => void
 }
 
 export const PostsContext = createContext<PostsContextAtrrs>({
@@ -22,6 +23,11 @@ type Post = {
   readonly updatedAt: string
 }
 
+type FilterPost = {
+  readonly title?: string
+  readonly content?: string
+}
+
 type PostsContextProviderProps = {
   readonly children: ReactNode
 }
@@ -35,14 +41,17 @@ type PostsContextProviderProps = {
 export function PostsContextProvider({ children }: PostsContextProviderProps): ReactElement {
   const [posts, setPosts] = useState<readonly Post[]>([])
   const [offset, setOffset] = useState(0)
+  const [isFilter, setIsFilter] = useState(false)
 
   useEffect(fetch, [])
 
   function fetch(): void {
-    axios.get(`http://localhost:9000/posts/${offset}`, { headers: construcHeaders() }).then((response) => {
+    axios.get(`http://localhost:9000/posts/${!isFilter ? offset : 0}`, { headers: construcHeaders() }).then((response) => {
       if (response.data.data) setPosts(response.data.data)
     }).catch((e) => { console.error(e) })
-    setOffset(offset + 1)
+    if (!isFilter) setOffset(offset + 1)
+    else setOffset(0)
+    setIsFilter(false)
   }
 
   function addPost(post: Post): void {
@@ -56,8 +65,17 @@ export function PostsContextProvider({ children }: PostsContextProviderProps): R
     setPosts(posts.filter(({ _id }) => _id !== id))
   }
 
+  function filterPost(filter: FilterPost): void {
+    axios.post('http://localhost:9000/posts/filter', { ...filter, offset: isFilter ? offset : 0 }, { headers: construcHeaders() }).then((response) => {
+      if (response.data.data) setPosts(response.data.data)
+    }).catch((e) => { console.error(e) })
+    if (isFilter) setOffset(offset + 1)
+    else setOffset(0)
+    setIsFilter(true)
+  }
+
   return (
-    <PostsContext.Provider value={{ posts, fetch, addPost, removePost }}>
+    <PostsContext.Provider value={{ posts, fetch, addPost, removePost, filterPost }}>
       {children}
     </PostsContext.Provider>
   )

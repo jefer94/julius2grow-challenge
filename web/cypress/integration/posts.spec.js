@@ -68,14 +68,14 @@ context('Add post', () => {
   })
 
   it('Not have title', () => {
-    cy.get('button').click()
+    cy.get('#add-post').click()
     cy.contains('Titulo vacio')
   })
 
   it('Not have content', () => {
     cy.fixture('post').then((post) => {
       cy.get('#title').type(post.title)
-      cy.get('button').click()
+      cy.get('#add-post').click()
       cy.contains('Contenido vacio')
     })
   })
@@ -91,7 +91,7 @@ context('Add post', () => {
   })
 
   it('Was added', () => {
-    cy.get('button').click()
+    cy.get('#add-post').click()
     cy.wait(500)
     cy.contains('Post agregado').as('post')
     cy.wait(2001)

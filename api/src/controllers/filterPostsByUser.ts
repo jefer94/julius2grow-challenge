@@ -26,6 +26,9 @@ export async function filterPostsByUser(req: Request, res: Response): Promise<vo
       .sort('createdAt')
       .lean() :
     []
+  // Post.populate(listByContent)
+
+  // console.log()
 
   const filterListByTitle = listByTitle.filter(({ _id }) => !listByContent.some((v) => v._id !== _id))
   res.json({ data: [...filterListByTitle, ...listByContent] })

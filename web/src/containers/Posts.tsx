@@ -5,18 +5,20 @@ import AddPost from '../containers/AddPost'
 import checkAuthCredentials from '../hooks/checkAuthCredentials'
 import { PostsContext } from '../contexts'
 import Modal from '../components/Modal'
+import FilterPosts from './FilterPosts'
+import css from './Posts.module.css'
 
 export default function Home(): ReactElement {
   const { posts, removePost } = useContext(PostsContext)
   useEffect(checkAuthCredentials, [])
 
-  function removePostModal(status: boolean): void {
-    status
-    //
-  }
+  // function removePostModal(status: boolean): void {
+  //   status
+  //   //
+  // }
 
   return (
-    <div>
+    <div className={css.container}>
       <Cards id="posts">
         {posts.map((post, key) => (
           <Card
@@ -30,7 +32,10 @@ export default function Home(): ReactElement {
             image="/unnamed.jpg" />
         ) )}
       </Cards>
-      <AddPost />
+      <div className={css.sidebar}>
+        <FilterPosts />
+        <AddPost />
+      </div>
     </div>
   )
 }
