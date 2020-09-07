@@ -5,24 +5,55 @@ import CardTitle from './CardTitle'
 import CardContent from './CardContent'
 import CardUser from './CardUser'
 import CardDate from './CardDate'
+import { ReactElement, useState } from 'react'
+import Modal from './Modal'
 
-export default function Card({ image }) {
+type CardProps = {
+  readonly id: string
+  readonly user: string
+  readonly date: string
+  readonly title: string
+  readonly content: string
+  readonly image: string
+  readonly onRemove?: (id: string) => void
+}
+
+export default function Card({ id, user, date, title, content, image, onRemove }: CardProps): ReactElement {
+  const [show, setShow] = useState(false)
+
+  // function remove() {
+  //   onRemove(id)
+  // }
+
+  function onModalClick(status: boolean) {
+    if (status) onRemove(id)
+    else setShow(false)
+  }
+
   return (
     <div style={{ width: 398 }}>
+      <Modal
+        show={show}
+        onClick={onModalClick}
+        message="Deseas eliminar este elemento"
+        primaryColor="danger"
+        primaryMessage="Eliminar"
+        secondaryMessage="Cancelar"
+      />
       <div style={{ height: 48 }}>
         <div style={{ width: 370, display: 'inline-block' }}>
-          <CardUser user="Jefer94" />
-          <CardDate date="00/00/00" />
+          <CardUser user={user} />
+          <CardDate date={date} />
         </div>
-        <FontAwesomeIcon icon={faTrashAlt} style={{
+        <FontAwesomeIcon className="remove-post" onClick={() => setShow(true)} icon={faTrashAlt} style={{
           width: 18,
           height: 18,
           color: '#FF4C62'
         }}/>
       </div>
       <CardImage image={image} />
-      <CardTitle title="Ahora no joven, estoy leyendo" />
-      <CardContent content="Lorem ipsum dolor sit amet consectetur adipiscing elit et dapibus, justo nibh nec venenatis fusce cursus consequat dictum urna sociosqu, dictumst ultrices ac bibendum cum phasellus aliquam mi" />
+      <CardTitle title={title} />
+      <CardContent content={content} />
     </div>
   );
 }

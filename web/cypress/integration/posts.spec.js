@@ -18,6 +18,14 @@
 // })
 
 context('Token', () => {
+  beforeEach(() => {
+    cy.restoreLocalStorageCache()
+  })
+  
+  afterEach(() => {
+    cy.saveLocalStorageCache()
+  })
+
   it('Get user', () => {
     cy.fixture('user').then((user) => {
       // cy.clearLocalStorage()
@@ -32,34 +40,32 @@ context('Token', () => {
       cy.location('pathname').should('eq', '/')
     })
   })
-// })
+})
 
-// context('Posts', () => {
-  // before(() => {
-  //   cy.auth()
-  //   cy.visit('/')
-  // })
-
+context('Posts', () => {
   beforeEach(() => {
-    cy.restoreLocalStorageCache();
-  });
+    cy.restoreLocalStorageCache()
+  })
   
   afterEach(() => {
-    cy.saveLocalStorageCache();
-  });
+    cy.saveLocalStorageCache()
+  })
 
   it('Not have children', () => {
     // cy.visit('/')
 
     cy.get('#posts').children().should('not.exist')
   })
-// })
+})
 
-// context('Add post', () => {
-  // before(() => {
-  //   cy.auth()
-  //   cy.visit('/')
-  // })
+context('Add post', () => {
+  beforeEach(() => {
+    cy.restoreLocalStorageCache()
+  })
+  
+  afterEach(() => {
+    cy.saveLocalStorageCache()
+  })
 
   it('Not have title', () => {
     cy.get('button').click()
@@ -87,9 +93,24 @@ context('Token', () => {
   it('Was added', () => {
     cy.get('button').click()
     cy.wait(500)
-    // cy.contains('Post agregado').as('post')
-    cy.wait(10001)
-    // cy.get('@post').should('not.exist')
+    cy.contains('Post agregado').as('post')
+    cy.wait(2001)
+    cy.get('@post').should('not.exist')
+  })
+
+  it('List was added', () => {
+    cy.get('#posts').children().should('exist')
+    cy.reload()
+    cy.get('#posts').children().should('exist')
+  })
+
+  it('Remove element', () => {
+    cy.get('.remove-post').click()
+    cy.contains('Cancelar').click()
+    cy.get('#posts').children().should('exist')
+    cy.contains('Eliminar').click()
+    cy.get('#posts').children().should('not.exist')
+    cy.reload()
+    cy.get('#posts').children().should('not.exist')
   })
 })
-

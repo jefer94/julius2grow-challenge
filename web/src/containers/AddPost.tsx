@@ -1,6 +1,6 @@
 import { Button, Form } from 'reactstrap'
 
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import Error from '../components/Error'
 import Success from '../components/Success'
@@ -10,9 +10,11 @@ import postCss from './AddPost.module.css'
 import construcHeaders from '../hooks/construcHeaders'
 import Field from '../components/Field'
 import logout from '../hooks/logout'
+import { PostsContext } from '../contexts'
 // import Navbar from '../components/Navbar'
 
-export default function Home(): ReactElement {
+export default function AddPost(): ReactElement {
+  const { addPost } = useContext(PostsContext)
   const [image, setImage] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -35,6 +37,7 @@ export default function Home(): ReactElement {
         setTitle('')
         setContent('')
         setImage('')
+        if (addPost) addPost(response.data.data)
         setSuccess('Post agregado')
       }
       catch(e) {
@@ -74,7 +77,7 @@ export default function Home(): ReactElement {
             id="image"
             label="Image"
             value={image}
-            type="image"
+            type="file"
             onChange={(v) => setImage(v.target.value)}
           />
 

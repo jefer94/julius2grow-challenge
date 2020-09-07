@@ -128,7 +128,7 @@ type Offset = {
       - [X] List
       - [X] Add
       - [ ] Filter
-      - [ ] Delete
+      - [X] Delete
 
 # Where are upload the challenge
 

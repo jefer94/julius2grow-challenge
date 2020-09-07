@@ -11,7 +11,7 @@ export async function addPost(req: Request, res: Response): Promise<void> {
   try {
     const post = new Post({ ...req.body, user: req.params.id })
     await post.save()
-    res.json({ data: { status: 'successful' } })
+    res.json({ data: post })
   }
   catch(e) {
     res.json({ errors: [e] })
